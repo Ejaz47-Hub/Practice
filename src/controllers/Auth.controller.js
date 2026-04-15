@@ -22,7 +22,7 @@ async function registerUserController(req,res){
 async function loginUserController(req,res){
     const{username,password} = req.body
 
-    const IsRegisterd = await UserModel.findOne({username,password})
+    const IsRegisterd = await UserModel.findOne({username})
     if(!IsRegisterd){
         return res.status(400).json({message:"User Not Registered"})
     }
