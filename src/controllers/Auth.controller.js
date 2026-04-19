@@ -22,7 +22,9 @@ async function registerUserController(req,res){
 async function loginUserController(req,res){
     const{username,password} = req.body
     
-
+  if(!username,!password){
+    return res.status(401).json({message:"Enter the Detail TO login"})
+  }
     const IsRegisterd = await UserModel.findOne({username})
     if(!IsRegisterd){
         return res.status(400).json({message:"User Not Registered"})
@@ -39,5 +41,12 @@ async function loginUserController(req,res){
   res.status(200).json({message:"Login SuccessFully",user:{username},token})
 
 }
+ 
 
-export {registerUserController,loginUserController}
+async function logoutUserController(req,res) {
+  res.clearCookie("token")
+  return res.status(200).json({message:"Logout SuccessFull"})
+  
+}
+
+export {registerUserController,loginUserController,logoutUserController}
